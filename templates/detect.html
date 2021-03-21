@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block title %}Flasky{% endblock %}
+
+{% block content %}
+<div class='container'>
+<div id="profile" class="col-lg-6">
+        <div id="profile-resume" class="card">
+            {% if filename %}
+                <div>
+                    <img src="{{ url_for('display_image', filename=filename) }}">
+                </div>
+            {% endif %}
+                <div class="card-block">
+                    <h4 class="card-title">Cute armyworm<small>78%</small></h4>
+                    <p class="card-text"></p>
+                </div>
+        </div>
+</div>
+
+{% endblock %} 
+{% block scripts %} 
+{{ super() }} 
+<script src="/static/js/jquery-3.4.1.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/main.js"></script>
+{% endblock %} 

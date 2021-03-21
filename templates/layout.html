@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8"/>      
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Insect Detection</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/css/base2.css">
+    
+  </head>
+  <body style="background-color:rgb(135, 145, 112);">
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+      <nav class="my-2 my-md-0 mr-md-3">
+      </nav>
+    </div>
+    <div class="container">
+        {% for message in get_flashed_messages() %} 
+        <div class="alert alert-warning">        
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  {{ message }}
+        </div>    
+        {% endfor %}
+
+    <div class='row'>
+        <div id=main class="card col-lg-8">
+          <div class="card-block">
+              <p style="text-align:left;">
+                <div class="col-md-12">
+                  <h4><label>Choose Image:</label></h4>
+                </div>
+                <form method="post" action="/" enctype="multipart/form-data">
+                  <dl>
+                  <p>
+                    <label class="btn btn-warning btn-file">
+                        <input type="file" name='file' required>
+                    </label>
+                  </p>
+                  </dl>
+                  <p>
+                  <input type="submit" class="btn btn-success" value="Analyse Image">
+                </p>
+              </form>
+              {% block content %} 
+                <div class="container">
+                    <div class='container'>
+                      <div id="profile" class="col-lg-6">
+                              <div id="profile-resume" class="card">
+                                  {% if filename %}
+                                      <div>
+                                          <img src="{{ url_for('detect_insect', filename=filename) }}">
+                                      </div>
+                                  {% endif %}
+                                      <div class="card-block">
+                                          <h4 class="card-title">Detected insects</h4>
+                                          <p class="card-text"></p>
+                                      </div>
+                              </div>
+                      </div>
+                </div> 
+              {% endblock %}
+          </div>
+        </div>
+    </div>
+    </div> 
+    <footer >
+        <script src="/static/js/jquery-3.4.1.js"></script>
+        <script src="/static/js/bootstrap.js"></script>
+        <script src="/static/js/main.js"></script>
+    </body>
+    
+</html>
