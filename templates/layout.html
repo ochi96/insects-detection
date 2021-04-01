@@ -43,22 +43,6 @@
                 </p>
               </form>
               {% block content %} 
-                <div class="container">
-                    <div class='container'>
-                      <div id="profile" class="col-lg-6">
-                              <div id="profile-resume" class="card">
-                                  {% if filename %}
-                                      <div>
-                                          <img src="{{ url_for('detect_insect', filename=filename) }}">
-                                      </div>
-                                  {% endif %}
-                                      <div class="card-block">
-                                          <h4 class="card-title">Detected insects</h4>
-                                          <p class="card-text"></p>
-                                      </div>
-                              </div>
-                      </div>
-                </div> 
               {% endblock %}
           </div>
         </div>

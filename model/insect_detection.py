@@ -9,7 +9,7 @@ IMAGE_SIZE = (12, 8)
 PATH_TO_FROZEN_GRAPH = "model/frozen_inference_graph_rcnn.pb"
 label = "model/label_map.txt"
 FONT_NAME = 'arial.ttf'
-COLORS = ['Green', 'Red', 'Pink', 'Olive', 'Brown', 'Gray', 'Cyan', 'Orange']
+COLORS = ['Green', 'Red', 'Orange', 'Pink', 'Olive', 'Brown', 'Gray', 'Cyan']
 N_CHANNELS = 3
 TEXT_COLOR = 'Black'
 IMAGE_TENSOR_KEY = 'image_tensor'
@@ -19,7 +19,6 @@ DETECTION_CLASSES_KEY = 'detection_classes'
 TENSOR_SUFFIX = ':0'
 IMAGE_NP_KEY = 'image_np'
 RESULTS_KEY = 'results'
-
 
 class ObjectResult():
     """
@@ -34,7 +33,6 @@ class ObjectResult():
     def __repr__(self):
         return '{0} ({1}%)'.format(self.label, int(100 * self.score))
 
-
 def load_image_into_numpy_array(image):
     """
     Converts a PIL image into a numpy array (height x width x channels).
@@ -44,7 +42,6 @@ def load_image_into_numpy_array(image):
     (width, height) = image.size
     return np.array(image.getdata()) \
         .reshape((height, width, N_CHANNELS)).astype(np.uint8)
-
 
 def process_output(classes, scores, boxes, category_index):
     """
@@ -59,11 +56,13 @@ def process_output(classes, scores, boxes, category_index):
     for clazz, score, box in zip(classes, scores, boxes):
         if score > 0.0:
             label = category_index[clazz]#[NAME_KEY]
+            score = float("{:.2f}".format(score))
             obj_result = ObjectResult(label, score, box)
             results.append(obj_result)
-    return results
+    print(results[0])
+    return [results[0]]
 
-def draw_labeled_boxes(image_np, results, min_score=.3):
+def draw_labeled_boxes(image_np, results, min_score=.1):
     """
     Draws labeled boxes according to results on the given image.
     :param image_np: numpy array image
@@ -98,8 +97,6 @@ def get_suitable_font_for_text(text, img_width, font_name, img_fraction=0.12):
         fontsize += 1
         font = ImageFont.truetype(font_name, fontsize)
     return font
-
-
 
 def draw_bounding_box_on_image(image, box, color, box_label):
     """
@@ -141,8 +138,6 @@ def draw_bounding_box_on_image(image, box, color, box_label):
     # right below the upper-left horizontal line of the bounding box
     text_position = (left + line_width, top + line_width)
     draw.text(text_position, box_label, fill=TEXT_COLOR, font=font)
-
-
 
 def show_image(filename, image):
     """
@@ -188,7 +183,6 @@ def run_inference(graph, image_np):
                     output_dict[DETECTION_CLASSES_KEY][0].astype(np.int64)
             }
 
-
 def detect(raw_image):
     with open(label, 'r') as f:
         pairs = (l.strip().split('.') for l in f.readlines())
@@ -214,4 +208,4 @@ def detect(raw_image):
     for filename, img_results_dict in file_result_dict.items():
         processed_image = draw_labeled_boxes(img_results_dict[IMAGE_NP_KEY], img_results_dict[RESULTS_KEY])
         #show_image(filename, processed_image)
-    return processed_image
+    return results, processed_image

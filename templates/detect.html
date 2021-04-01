@@ -1,22 +1,21 @@
 {% extends "layout.html" %}
-{% block title %}Flasky{% endblock %}
+{% block title %}Detected insects{% endblock %}
 
 {% block content %}
 <div class='container'>
 <div id="profile" class="col-lg-6">
         <div id="profile-resume" class="card">
-            {% if filename %}
                 <div>
-                    <img src="{{ url_for('display_image', filename=filename) }}">
+                    <img src="{{url_for('static',filename='img2/' + filename)}}">
                 </div>
-            {% endif %}
                 <div class="card-block">
-                    <h4 class="card-title">Cute armyworm<small>78%</small></h4>
-                    <p class="card-text"></p>
+                    <h3 class="card-title">{{results[0].label}} </h3>
+                    <p class="card-text">Confidence: {{(results[0].score*100)}}% </p>
+                    <p class="card-text">Stage of growth: {{selected_insect_info[1]}} </p>
+                    <p class="card-text">Damage description: {{selected_insect_info[2]}}</p>
                 </div>
         </div>
 </div>
-
 {% endblock %} 
 {% block scripts %} 
 {{ super() }} 
