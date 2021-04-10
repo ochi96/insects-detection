@@ -1,10 +1,10 @@
 import os
 import glob
-import cv2
 from flask import Flask, render_template, flash, redirect, url_for, Response, request
 from werkzeug.utils import secure_filename
 from .model import insect_detection
 from .insect_info import damage_info
+import cv2
 
 app = Flask(__name__)
 
