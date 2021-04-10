@@ -67,9 +67,11 @@ def insect_damage(results):
             damage = item['damage']
             photos = item['damage_photos']
             selected_insect_info.extend([stage, damage, photos])
-    
+
     return selected_insect_info
 
 
 if __name__ == "__main__":
-    app.run(host='127.0.0.1', port = 8090)
+    app.debug = False
+    port = int(os.environ.get('PORT', 33507))
+    waitress.serve(app, port=port)
