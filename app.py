@@ -8,8 +8,6 @@ import cv2
 
 app = Flask(__name__)
 
-heroku = heroku(app)
-
 UPLOAD_FOLDER = "static/img/"
 analysed_images_path = "static/img2/"
 app.config['SECRET_KEY'] = "amateurstalktacticsprofessionalstalklogistics"
