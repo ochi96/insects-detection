@@ -59,7 +59,7 @@ def process_output(classes, scores, boxes, category_index):
             score = float("{:.2f}".format(score))
             obj_result = ObjectResult(label, score, box)
             results.append(obj_result)
-    print(results[0])
+    print(results[0:10])
     return [results[0]]
 
 def draw_labeled_boxes(image_np, results, min_score=.1):
@@ -191,7 +191,8 @@ def detect(raw_image):
     graph = tf.Graph()
     with graph.as_default():
         graph_def = tf.GraphDef()
-        with tf.gfile.GFile(PATH_TO_FROZEN_GRAPH, 'rb') as fid:
+        #tf.gfile.GFile
+        with tf.io.gfile.GFile(PATH_TO_FROZEN_GRAPH, 'rb') as fid:
             serialized_graph = fid.read()
             graph_def.ParseFromString(serialized_graph)
             tf.import_graph_def(graph_def, name='')

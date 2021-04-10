@@ -1,6 +1,7 @@
-1.Armyworm
-2.Fruit fly
-3.Mites
-4.Thrips
-5.Tobacco Whitefly
-6.Trifoli
+1.Aphids
+2.Armyworm
+3.Fruit fly
+4.Mites
+5.Thrips
+6.Tobacco Whitefly
+7.Trifoli

@@ -3,8 +3,10 @@
 
 {% block content %}
 <div class='container'>
-<div id="profile" class="col-lg-6">
+<div id="profile" class="col-lg-12">
         <div id="profile-resume" class="card">
+            <div class='row'>
+                <div class="col-lg-6">
                 <div>
                     <img src="{{url_for('static',filename='img2/' + filename)}}">
                 </div>
@@ -14,7 +16,24 @@
                     <p class="card-text">Stage of growth: {{selected_insect_info[1]}} </p>
                     <p class="card-text">Damage description: {{selected_insect_info[2]}}</p>
                 </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="row">
+                        <img src="{{url_for('static', filename='damages/'+ results[0].label + '/fruits/' + '1576142.jpg')}}" class="img-responsive" width='200' height="200">
+                        <p class="card-text">Effect on fruits </p>
+                    </div>
+                    <div class="row">
+                        <img src="{{url_for('static', filename='damages/'+ results[0].label + '/leaves/' + '1198009.jpg')}}" class="img-responsive" width='200' height="200">
+                        <p class="card-text">Effect on leaves </p>
+                    </div>
+                    <div class="row">
+                        <img src="{{url_for('static', filename='damages/'+ results[0].label + '/stems/' + '1573144.jpg')}}" class="img-responsive" width='200' height="200">
+                        <p class="card-text">Effect on branches </p>
+                    </div>
+            </div>
         </div>
+        </div>
+    </div>
 </div>
 {% endblock %} 
 {% block scripts %} 
