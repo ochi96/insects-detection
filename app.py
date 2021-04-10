@@ -2,11 +2,13 @@ import os
 import glob
 from flask import Flask, render_template, flash, redirect, url_for, Response, request
 from werkzeug.utils import secure_filename
-from .model import insect_detection
-from .insect_info import damage_info
+from model import insect_detection
+from insect_info import damage_info
 import cv2
 
 app = Flask(__name__)
+
+heroku = heroku(app)
 
 UPLOAD_FOLDER = "static/img/"
 analysed_images_path = "static/img2/"
