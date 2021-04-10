@@ -8,7 +8,7 @@ import numpy as np
 IMAGE_SIZE = (12, 8)
 PATH_TO_FROZEN_GRAPH = "model/frozen_inference_graph_rcnn.pb"
 label = "model/label_map.txt"
-FONT_NAME = 'arial.ttf'
+FONT_NAME = 'fonts/Paul-le1V.ttf'
 COLORS = ['Green', 'Red', 'Orange', 'Pink', 'Olive', 'Brown', 'Gray', 'Cyan']
 N_CHANNELS = 3
 TEXT_COLOR = 'Black'
@@ -95,7 +95,7 @@ def get_suitable_font_for_text(text, img_width, font_name, img_fraction=0.12):
     font = ImageFont.truetype(FONT_NAME, fontsize)
     while font.getsize(text)[0] < img_fraction*img_width:
         fontsize += 1
-        font = ImageFont.truetype(font_name, fontsize)
+        font = ImageFont.truetype(font_name, fontsize, encoding='unic')
     return font
 
 def draw_bounding_box_on_image(image, box, color, box_label):
