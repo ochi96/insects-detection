@@ -5,3 +5,4 @@ tensorflow-cpu==1.15.0
 numpy==1.19.5
 Pillow==7.1.2
 matplotlib==3.3.4
+gunicorn==19.9.0
