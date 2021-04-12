@@ -39,6 +39,7 @@ def upload_file():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
+            print('point 1')
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             flash('File uploaded successfully')
             return redirect(url_for('detect_insect', filename=filename))
