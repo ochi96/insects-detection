@@ -1,9 +1,12 @@
 import os
 import glob
+import random
 from flask import Flask, render_template, flash, redirect, url_for, Response, request
 from werkzeug.utils import secure_filename
 from model import insect_detection
 from insect_info import damage_info
+#from .model import insect_detection
+#from .insect_info import damage_info
 import cv2
 
 app = Flask(__name__)
@@ -51,9 +54,12 @@ def detect_insect(filename, inter=cv2.INTER_AREA):
     results, processed_image = insect_detection.detect(latest_file)
     selected_insect_info = insect_damage(results)
     resized_image = cv2.resize(processed_image, (500,500), interpolation=inter)
+    for file in os.listdir(analysed_images_path):
+        os.remove((analysed_images_path+"{}").format(file))
     cv2.imwrite(analysed_images_path + filename, cv2.cvtColor(resized_image, cv2.COLOR_RGB2BGR))
+    for file in os.listdir(UPLOAD_FOLDER):
+        os.remove((UPLOAD_FOLDER+"{}").format(file))
     return render_template('detect.html', results = results, selected_insect_info = selected_insect_info, filename=filename)
-
 
 def insect_damage(results):
     '''retrieving detected info from "database" '''
@@ -64,11 +70,11 @@ def insect_damage(results):
         if item['name']==label_name:
             stage = item['stage']
             damage = item['damage']
-            photos = item['damage_photos']
-            selected_insect_info.extend([stage, damage, photos])
-
+            fruit_damage = random.choice(os.listdir(('static/damages/{}/fruits').format(item['name'])))
+            leaf_damage = random.choice(os.listdir(('static/damages/{}/leaves').format(item['name'])))
+            branch_damage = random.choice(os.listdir(('static/damages/{}/stems').format(item['name'])))
+            selected_insect_info.extend([stage, damage, fruit_damage, leaf_damage, branch_damage])
     return selected_insect_info
-
 
 if __name__ == "__main__":
     app.debug = False
