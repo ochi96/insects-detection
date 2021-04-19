@@ -54,7 +54,7 @@ def detect_insect(filename, inter=cv2.INTER_AREA):
     latest_file = max(list_of_files, key=os.path.getctime)
     results, processed_image = insect_detection.detect(latest_file)
     selected_insect_info = insect_damage(results)
-    resized_image = cv2.resize(processed_image, (500,500), interpolation=inter
+    resized_image = cv2.resize(processed_image, (500,500), interpolation=inter)
     for file in os.listdir(analysed_images_path):
         os.remove((analysed_images_path+"{}").format(file))
     cv2.imwrite(analysed_images_path + filename, cv2.cvtColor(resized_image, cv2.COLOR_RGB2BGR))
