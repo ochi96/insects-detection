@@ -79,5 +79,4 @@ def insect_damage(results):
 
 if __name__ == "__main__":
     app.debug = False
-    port = int(os.environ.get('PORT', 8080))
-    waitress.serve(app, port=port)
+    app.run(host="0.0.0.0", port=8080)
